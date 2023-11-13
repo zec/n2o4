@@ -334,7 +334,7 @@
 </span><span class="kw">use </span><span class="kw">super</span>::Status;
 <span class="kw">use </span><span class="kw">crate</span>::cfe::{es::AppId, time::SysTime};
 <span class="kw">use </span><span class="kw">crate</span>::sealed_traits;
-<span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
+<span class="kw">use </span><span class="kw">crate</span>::sys::<span class="kw-2">*</span>;
 <span class="kw">use </span>core::convert::TryFrom;
 <span class="kw">use </span>core::ffi::{c_char, c_void};
 <span class="kw">use </span>core::marker::PhantomData;
@@ -362,11 +362,11 @@
 /// This is the same as `CFE_EVS_BinFilter`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;CFE_EVS_BinFilter&quot;</span>)]
 #[doc(inline)]
-</span><span class="kw">pub use </span>cfs_sys::CFE_EVS_BinFilter <span class="kw">as </span>BinFilter;
+</span><span class="kw">pub use </span><span class="kw">crate</span>::sys::CFE_EVS_BinFilter <span class="kw">as </span>BinFilter;
 
 <span class="doccomment">/// Values intended for use in the `Mask` field of [`BinFilter`].
 </span><span class="kw">pub mod </span>bin_filter {
-    <span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
+    <span class="kw">use </span><span class="kw">crate</span>::sys::<span class="kw-2">*</span>;
 
     <span class="doccomment">/// Value for [`Mask`](`super::BinFilter::Mask`): all event messages are sent (until the event counter saturates).
     </span><span class="attr">#[doc(alias = <span class="string">&quot;CFE_EVS_NO_FILTER&quot;</span>)]

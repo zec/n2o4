@@ -843,8 +843,8 @@
 
 </span><span class="kw">use </span><span class="kw">crate</span>::cfe::time::SysTime;
 <span class="kw">use </span><span class="kw">crate</span>::cfe::Status;
+<span class="kw">use </span><span class="kw">crate</span>::sys::<span class="kw-2">*</span>;
 <span class="kw">use </span><span class="kw">crate</span>::utils::CStrBuf;
-<span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
 <span class="kw">use </span>core::ffi::{c_char, c_void, CStr};
 <span class="kw">use </span>core::marker::PhantomData;
 <span class="kw">use </span>core::ops::{Deref, DerefMut};
@@ -1609,7 +1609,7 @@
 
 <span class="doccomment">/// This is only exported for the use of [`table_validation_fn`](crate::table_validation_fn).
 </span><span class="attr">#[doc(hidden)]
-</span><span class="kw">pub const </span>CFE_SUCCESS: i32 = cfs_sys::S_CFE_SUCCESS;
+</span><span class="kw">pub const </span>CFE_SUCCESS: i32 = <span class="kw">crate</span>::sys::S_CFE_SUCCESS;
 
 <span class="doccomment">/// Creates a `const` [`TableValidationFn`]`&lt;$t&gt;` from
 /// static function `$f_wrapped`,

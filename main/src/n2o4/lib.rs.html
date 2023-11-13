@@ -18,7 +18,8 @@
 <a href="#18" id="18">18</a>
 <a href="#19" id="19">19</a>
 <a href="#20" id="20">20</a>
-</pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2021-2022 The Pennsylvania State University and the project contributors.
+<a href="#21" id="21">21</a>
+</pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2021-2023 The Pennsylvania State University and the project contributors.
 // SPDX-License-Identifier: Apache-2.0
 
 </span><span class="doccomment">//! Safe, higher-level bindings to the APIs of
@@ -29,9 +30,10 @@
 </span><span class="attr">#![cfg_attr(not(test), no_std)]
 #![warn(missing_docs)]
 
-</span><span class="kw">extern crate </span>cfs_sys;
-<span class="kw">extern crate </span>printf_wrap;
+</span><span class="kw">extern crate </span>printf_wrap;
 <span class="kw">extern crate </span>psm;
+
+<span class="kw">pub mod </span>sys;
 
 <span class="kw">pub mod </span>cfe;
 <span class="kw">pub mod </span>osal;

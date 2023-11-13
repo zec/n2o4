@@ -394,7 +394,7 @@
 <a href="#394" id="394">394</a>
 <a href="#395" id="395">395</a>
 <a href="#396" id="396">396</a>
-</pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2021-2022 The Pennsylvania State University and the project contributors.
+</pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2021-2023 The Pennsylvania State University and the project contributors.
 // SPDX-License-Identifier: Apache-2.0
 
 </span><span class="doccomment">//! Status constants used by cFE.
@@ -402,7 +402,7 @@
 </span><span class="attr">#![allow(missing_docs)]
 
 </span><span class="kw">use </span><span class="kw">super</span>::Status;
-<span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
+<span class="kw">use </span><span class="kw">crate</span>::sys::<span class="kw-2">*</span>;
 
 <span class="kw">const fn </span>mk_status(n: CFE_Status_t) -&gt; Status {
     Status { status: n }

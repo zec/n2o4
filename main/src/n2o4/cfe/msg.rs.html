@@ -537,7 +537,7 @@
 
 <span class="kw">use </span><span class="kw">super</span>::sb::MsgId;
 <span class="kw">use </span><span class="kw">super</span>::Status;
-<span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
+<span class="kw">use </span><span class="kw">crate</span>::sys::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// Returns the number of items in array field `$field` of `$type`.
 ///
@@ -579,14 +579,14 @@
 /// This is the same as `CFE_MSG_FcnCode_t`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;CFE_MSG_FcnCode_t&quot;</span>)]
 #[doc(inline)]
-</span><span class="kw">pub use </span>cfs_sys::CFE_MSG_FcnCode_t <span class="kw">as </span>FunctionCode;
+</span><span class="kw">pub use </span><span class="kw">crate</span>::sys::CFE_MSG_FcnCode_t <span class="kw">as </span>FunctionCode;
 
 <span class="doccomment">/// Represents the size of a [`Message`].
 ///
 /// This is the same as `CFE_MSG_Size_t`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;CFE_MSG_Size_t&quot;</span>)]
 #[doc(inline)]
-</span><span class="kw">pub use </span>cfs_sys::CFE_MSG_Size_t <span class="kw">as </span>Size;
+</span><span class="kw">pub use </span><span class="kw">crate</span>::sys::CFE_MSG_Size_t <span class="kw">as </span>Size;
 
 <span class="doccomment">/// An instance of the common header for cFE software bus messages.
 ///

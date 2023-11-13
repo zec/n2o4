@@ -181,12 +181,12 @@
 <a href="#181" id="181">181</a>
 <a href="#182" id="182">182</a>
 <a href="#183" id="183">183</a>
-</pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2021-2022 The Pennsylvania State University and the project contributors.
+</pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2021-2023 The Pennsylvania State University and the project contributors.
 // SPDX-License-Identifier: Apache-2.0
 
 </span><span class="doccomment">//! Time Services system.
 
-</span><span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><span class="kw">crate</span>::sys::<span class="kw-2">*</span>;
 <span class="kw">use </span>core::cmp::Ordering;
 <span class="kw">use </span>core::ops::{Add, Sub};
 
@@ -237,7 +237,7 @@
             <span class="attr">#[doc(alias = <span class="string">&quot;CFE_TIME_Compare&quot;</span>)]
             #[inline]
             </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
-                cfs_sys::CFE_TIME_Compare_CFE_TIME_EQUAL == <span class="kw">unsafe </span>{ CFE_TIME_Compare(<span class="self">self</span>.tm, other.tm) }
+                <span class="kw">crate</span>::sys::CFE_TIME_Compare_CFE_TIME_EQUAL == <span class="kw">unsafe </span>{ CFE_TIME_Compare(<span class="self">self</span>.tm, other.tm) }
             }
         }
 
@@ -249,8 +249,8 @@
             #[inline]
             </span><span class="kw">fn </span>cmp(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; Ordering {
                 <span class="kw">match unsafe </span>{ CFE_TIME_Compare(<span class="self">self</span>.tm, other.tm) } {
-                    cfs_sys::CFE_TIME_Compare_CFE_TIME_A_LT_B =&gt; Ordering::Less,
-                    cfs_sys::CFE_TIME_Compare_CFE_TIME_EQUAL =&gt; Ordering::Equal,
+                    <span class="kw">crate</span>::sys::CFE_TIME_Compare_CFE_TIME_A_LT_B =&gt; Ordering::Less,
+                    <span class="kw">crate</span>::sys::CFE_TIME_Compare_CFE_TIME_EQUAL =&gt; Ordering::Equal,
                     <span class="kw">_ </span>=&gt; Ordering::Greater,
                 }
             }

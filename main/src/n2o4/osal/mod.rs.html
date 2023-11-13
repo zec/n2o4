@@ -302,12 +302,14 @@
 <a href="#302" id="302">302</a>
 <a href="#303" id="303">303</a>
 <a href="#304" id="304">304</a>
+<a href="#305" id="305">305</a>
+<a href="#306" id="306">306</a>
 </pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2021-2023 The Pennsylvania State University and the project contributors.
 // SPDX-License-Identifier: Apache-2.0
 
 </span><span class="doccomment">//! OSAL APIs.
 
-</span><span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><span class="kw">crate</span>::sys;
 <span class="kw">use </span>core::ffi::c_ulong;
 
 <span class="kw">use </span><span class="kw">crate</span>::utils::NegativeI32;
@@ -324,7 +326,7 @@
 </span><span class="doccomment">/// The maximum length of strings for names of many OSAL objects.
 ///
 /// The length includes the null terminator.
-</span><span class="kw">pub const </span>MAX_NAME_LEN: usize = OS_MAX_API_NAME <span class="kw">as </span>usize;
+</span><span class="kw">pub const </span>MAX_NAME_LEN: usize = sys::OS_MAX_API_NAME <span class="kw">as </span>usize;
 
 <span class="doccomment">/// An error code, as returned by many OSAL API functions.
 </span><span class="attr">#[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
@@ -343,7 +345,7 @@
 </span><span class="attr">#[doc(alias = <span class="string">&quot;OS_time_t&quot;</span>)]
 #[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub struct </span>OSTime {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) tm: OS_time_t,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) tm: sys::OS_time_t,
 }
 
 <span class="doccomment">/// A time interval.
@@ -356,7 +358,7 @@
 </span><span class="attr">#[doc(alias = <span class="string">&quot;OS_time_t&quot;</span>)]
 #[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub struct </span>OSTimeInterval {
-    <span class="kw">pub</span>(<span class="kw">crate</span>) int: OS_time_t,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) int: sys::OS_time_t,
 }
 
 <span class="doccomment">/// Methods in common between [`OSTime`] and [`OSTimeInterval`].
@@ -375,7 +377,7 @@
         #[doc(alias = <span class="macro-nonterminal">$c_from</span>)]
         #[inline]
         </span><span class="kw">pub fn </span><span class="macro-nonterminal">$name_from</span>(seconds: i64, <span class="macro-nonterminal">$fraction_lower</span>: u32) -&gt; <span class="self">Self </span>{
-            <span class="kw">let </span>tm = <span class="kw">unsafe </span>{ <span class="macro-nonterminal">$wrapped_function_from</span>(seconds, <span class="macro-nonterminal">$fraction_lower</span>) };
+            <span class="kw">let </span>tm = <span class="kw">unsafe </span>{ sys::<span class="macro-nonterminal">$wrapped_function_from</span>(seconds, <span class="macro-nonterminal">$fraction_lower</span>) };
             <span class="self">Self </span>{ <span class="macro-nonterminal">$field</span>: tm }
         }
 
@@ -388,7 +390,7 @@
         #[doc(alias = <span class="macro-nonterminal">$c_total</span>)]
         #[inline]
         </span><span class="kw">pub fn </span><span class="macro-nonterminal">$name_total</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
-            <span class="kw">unsafe </span>{ <span class="macro-nonterminal">$wrapped_function_total</span>(<span class="self">self</span>.<span class="macro-nonterminal">$field</span>) }
+            <span class="kw">unsafe </span>{ sys::<span class="macro-nonterminal">$wrapped_function_total</span>(<span class="self">self</span>.<span class="macro-nonterminal">$field</span>) }
         }
         )<span class="question-mark">?
 
@@ -400,7 +402,7 @@
         #[doc(alias = <span class="macro-nonterminal">$c_part</span>)]
         #[inline]
         </span><span class="kw">pub fn </span><span class="macro-nonterminal">$name_part</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; u32 {
-            <span class="kw">unsafe </span>{ <span class="macro-nonterminal">$wrapped_function_part</span>(<span class="self">self</span>.<span class="macro-nonterminal">$field</span>) }
+            <span class="kw">unsafe </span>{ sys::<span class="macro-nonterminal">$wrapped_function_part</span>(<span class="self">self</span>.<span class="macro-nonterminal">$field</span>) }
         }
     };
     (<span class="macro-nonterminal">$t</span>:ident, <span class="macro-nonterminal">$field</span>:ident, <span class="macro-nonterminal">$term</span>:literal) =&gt; {
@@ -440,7 +442,7 @@
             #[doc(alias = <span class="string">&quot;OS_TimeGetTotalSeconds&quot;</span>)]
             #[inline]
             </span><span class="kw">pub fn </span>total_seconds(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
-                <span class="kw">unsafe </span>{ SHIM_OS_TimeGetTotalSeconds(<span class="self">self</span>.<span class="macro-nonterminal">$field</span>) }
+                <span class="kw">unsafe </span>{ sys::SHIM_OS_TimeGetTotalSeconds(<span class="self">self</span>.<span class="macro-nonterminal">$field</span>) }
             }
 
             <span class="attr">#[doc = <span class="macro">concat!</span>(
@@ -451,16 +453,16 @@
             #[doc(alias = <span class="string">&quot;OS_TimeGetFractionalPart&quot;</span>)]
             #[inline]
             </span><span class="kw">pub fn </span>fractional_part(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i64 {
-                <span class="kw">unsafe </span>{ SHIM_OS_TimeGetFractionalPart(<span class="self">self</span>.<span class="macro-nonterminal">$field</span>) }
+                <span class="kw">unsafe </span>{ sys::SHIM_OS_TimeGetFractionalPart(<span class="self">self</span>.<span class="macro-nonterminal">$field</span>) }
             }
 
             <span class="attr">#[inline]
-            </span><span class="kw">const fn </span>as_os_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; OS_time_t {
+            </span><span class="kw">const fn </span>as_os_time(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; sys::OS_time_t {
                 <span class="self">self</span>.<span class="macro-nonterminal">$field
             </span>}
 
             <span class="attr">#[inline]
-            </span><span class="kw">const fn </span>from_os_time(tm: OS_time_t) -&gt; <span class="self">Self </span>{
+            </span><span class="kw">const fn </span>from_os_time(tm: sys::OS_time_t) -&gt; <span class="self">Self </span>{
                 <span class="self">Self </span>{ <span class="macro-nonterminal">$field</span>: tm }
             }
         }
@@ -514,7 +516,7 @@
 
 <span class="attr">#[rustfmt::skip]
 </span><span class="kw">mod </span>time_arith_impls {
-    <span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
+    <span class="kw">use </span><span class="kw">crate</span>::sys::<span class="kw-2">*</span>;
     <span class="kw">use </span>core::ops::{Add, Sub};
     <span class="kw">use super</span>::<span class="kw-2">*</span>;
 
@@ -533,7 +535,7 @@
 </span><span class="attr">#[doc(alias = <span class="string">&quot;osal_id_t&quot;</span>)]
 #[derive(Clone, Copy, Debug)]
 </span><span class="kw">pub struct </span>ObjectId {
-    id: osal_id_t,
+    id: sys::osal_id_t,
 }
 
 <span class="kw">impl </span>ObjectId {
@@ -541,7 +543,9 @@
     ///
     /// Wraps `OS_OBJECT_ID_UNDEFINED`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;OS_OBJECT_ID_UNDEFINED&quot;</span>)]
-    </span><span class="kw">pub const </span>UNDEFINED: ObjectId = ObjectId { id: X_OS_OBJECT_ID_UNDEFINED };
+    </span><span class="kw">pub const </span>UNDEFINED: ObjectId = ObjectId {
+        id: sys::X_OS_OBJECT_ID_UNDEFINED,
+    };
 
     <span class="doccomment">/// Returns whether `self` refers to a defined resource.
     ///
@@ -549,7 +553,7 @@
     </span><span class="attr">#[doc(alias = <span class="string">&quot;OS_ObjectIdDefined&quot;</span>)]
     #[inline]
     </span><span class="kw">pub fn </span>is_defined(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{ SHIM_OS_ObjectIdDefined(<span class="self">self</span>.id) }
+        <span class="kw">unsafe </span>{ sys::SHIM_OS_ObjectIdDefined(<span class="self">self</span>.id) }
     }
 
     <span class="doccomment">/// Returns the object type of `self` as a raw
@@ -558,8 +562,8 @@
     /// Wraps `OS_IdentifyObject`.
     </span><span class="attr">#[doc(alias = <span class="string">&quot;OS_IdentifyObject&quot;</span>)]
     #[inline]
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>obj_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; osal_objtype_t {
-        <span class="kw">unsafe </span>{ OS_IdentifyObject(<span class="self">self</span>.id) }
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>obj_type(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; sys::osal_objtype_t {
+        <span class="kw">unsafe </span>{ sys::OS_IdentifyObject(<span class="self">self</span>.id) }
     }
 }
 
@@ -569,7 +573,7 @@
     #[inline]
     </span><span class="kw">fn </span>from(val: c_ulong) -&gt; ObjectId {
         ObjectId {
-            id: <span class="kw">unsafe </span>{ SHIM_OS_ObjectIdFromInteger(val) },
+            id: <span class="kw">unsafe </span>{ sys::SHIM_OS_ObjectIdFromInteger(val) },
         }
     }
 }
@@ -579,7 +583,7 @@
     <span class="attr">#[doc(alias = <span class="string">&quot;OS_ObjectIdToInteger&quot;</span>)]
     #[inline]
     </span><span class="kw">fn </span>from(oid: ObjectId) -&gt; c_ulong {
-        <span class="kw">unsafe </span>{ SHIM_OS_ObjectIdToInteger(oid.id) }
+        <span class="kw">unsafe </span>{ sys::SHIM_OS_ObjectIdToInteger(oid.id) }
     }
 }
 
@@ -588,7 +592,7 @@
     <span class="attr">#[doc(alias = <span class="string">&quot;OS_ObjectIdEqual&quot;</span>)]
     #[inline]
     </span><span class="kw">fn </span>eq(<span class="kw-2">&amp;</span><span class="self">self</span>, other_id: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; bool {
-        <span class="kw">unsafe </span>{ SHIM_OS_ObjectIdEqual(<span class="self">self</span>.id, other_id.id) }
+        <span class="kw">unsafe </span>{ sys::SHIM_OS_ObjectIdEqual(<span class="self">self</span>.id, other_id.id) }
     }
 }
 

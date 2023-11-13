@@ -101,7 +101,7 @@
         <span class="kw">impl </span>OsalError {
             $(
                 <span class="attr">#[doc = <span class="macro">concat!</span>(<span class="macro-nonterminal">$doc</span>, <span class="string">&quot;.\n\nWraps `&quot;</span>, <span class="macro">stringify!</span>(<span class="macro-nonterminal">$error_code</span>), <span class="string">&quot;`.&quot;</span>)]
-                </span><span class="kw">pub const </span><span class="macro-nonterminal">$error_code</span>: <span class="self">Self </span>= err_or_panic(cfs_sys::<span class="macro-nonterminal">$error_code</span>);
+                </span><span class="kw">pub const </span><span class="macro-nonterminal">$error_code</span>: <span class="self">Self </span>= err_or_panic(<span class="kw">crate</span>::sys::<span class="macro-nonterminal">$error_code</span>);
             )+
         }
     };

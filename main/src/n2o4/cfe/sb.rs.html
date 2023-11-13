@@ -357,14 +357,14 @@
 
 <span class="kw">use </span><span class="kw">super</span>::msg::{Message, MsgType};
 <span class="kw">use </span><span class="kw">super</span>::Status;
-<span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
+<span class="kw">use </span><span class="kw">crate</span>::sys::<span class="kw-2">*</span>;
 
 <span class="doccomment">/// The numeric value of a [message ID](`MsgId`).
 ///
 /// This is the same as `CFE_SB_MsgId_Atom_t`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;CFG_SB_MsgId_Atom_t&quot;</span>)]
 #[doc(inline)]
-</span><span class="kw">pub use </span>cfs_sys::CFE_SB_MsgId_Atom_t <span class="kw">as </span>MsgId_Atom;
+</span><span class="kw">pub use </span><span class="kw">crate</span>::sys::CFE_SB_MsgId_Atom_t <span class="kw">as </span>MsgId_Atom;
 
 <span class="doccomment">/// An encoded message ID.
 ///

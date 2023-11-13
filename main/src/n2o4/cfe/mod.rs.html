@@ -251,12 +251,12 @@
 <a href="#251" id="251">251</a>
 <a href="#252" id="252">252</a>
 <a href="#253" id="253">253</a>
-</pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2021-2022 The Pennsylvania State University and the project contributors.
+</pre></div><pre class="rust"><code><span class="comment">// Copyright (c) 2021-2023 The Pennsylvania State University and the project contributors.
 // SPDX-License-Identifier: Apache-2.0
 
 </span><span class="doccomment">//! cFE APIs.
 
-</span><span class="kw">use </span>cfs_sys::<span class="kw-2">*</span>;
+</span><span class="kw">use </span><span class="kw">crate</span>::sys::<span class="kw-2">*</span>;
 <span class="kw">use </span>core::ffi::c_ulong;
 
 <span class="kw">pub mod </span>es;
@@ -338,7 +338,7 @@
 /// This is the same as `CFE_Status_t`.
 </span><span class="attr">#[doc(alias = <span class="string">&quot;CFE_Status_t&quot;</span>)]
 #[doc(inline)]
-</span><span class="kw">pub use </span>cfs_sys::CFE_Status_t <span class="kw">as </span>CFE_Status;
+</span><span class="kw">pub use </span><span class="kw">crate</span>::sys::CFE_Status_t <span class="kw">as </span>CFE_Status;
 
 <span class="doccomment">/// A status-code type often used as a return type in this crate.
 ///

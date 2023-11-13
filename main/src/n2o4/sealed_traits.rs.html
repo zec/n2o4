@@ -28,12 +28,12 @@
 
 <span class="doccomment">/// Sealing trait for [`SocketDomain`](crate::osal::socket::SocketDomain).
 </span><span class="kw">pub trait </span>SocketDomainSealed {
-    <span class="kw">const </span>DOMAIN: cfs_sys::OS_SocketDomain_t;
+    <span class="kw">const </span>DOMAIN: <span class="kw">crate</span>::sys::OS_SocketDomain_t;
 }
 
 <span class="doccomment">/// Sealing trait for [`SocketType`](crate::osal::socket::SocketType).
 </span><span class="kw">pub trait </span>SocketTypeSealed {
-    <span class="kw">const </span>SOCK_TYPE: cfs_sys::OS_SocketType_t;
+    <span class="kw">const </span>SOCK_TYPE: <span class="kw">crate</span>::sys::OS_SocketType_t;
 }
 
 <span class="doccomment">/// Sealing trait for [`SocketRole`](crate::osal::socket::SocketRole).
